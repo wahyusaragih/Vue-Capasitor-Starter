@@ -1,0 +1,25 @@
+{
+  "name": "new-app-test",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.4.3",
+    "@capacitor/core": "^7.4.3",
+    "vue": "^3.5.22",
+    "vuetify": "^3.10.5"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.4.3",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "sass": "^1.93.2",
+    "sass-loader": "^16.0.5",
+    "vite": "^7.1.7",
+    "vite-plugin-vuetify": "^2.1.2"
+  }
+}

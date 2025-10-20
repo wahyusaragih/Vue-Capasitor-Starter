@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">NewAppTest</string>
+    <string name="title_activity_main">NewAppTest</string>
+    <string name="package_name">com.ginko.app</string>
+    <string name="custom_url_scheme">com.ginko.app</string>
+</resources>
