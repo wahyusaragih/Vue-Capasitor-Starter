@@ -6,8 +6,8 @@
 ![Capacitor](https://img.shields.io/badge/Capacitor-7.x-purple)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-A **ready-to-use starter template** for building modern **Vue 3 + Vuetify 3** apps powered by **Vite**, with **Capacitor** support for Android deployment.  
-Perfect for developers who want fast builds, responsive UI, and smooth Android integration.
+A **ready-to-use starter template** for building modern **Vue 3 + Vuetify 3** apps powered by **Vite**, with seamless **Capacitor** support for Android deployment.  
+Perfect for developers who want **fast builds, beautiful UI, and smooth mobile integration**.
 
 ---
 
@@ -29,7 +29,7 @@ Perfect for developers who want fast builds, responsive UI, and smooth Android i
 
 ## 🧱 Project Setup
 
-Create a new Vue 3 project with **Vite**:
+Create a new Vue 3 project using **Vite**:
 
 ```bash
 npm create vite@latest new-app-test
@@ -39,9 +39,9 @@ When prompted:
 
 - **Framework:** Vue  
 - **Variant:** JavaScript (or TypeScript)  
-- **Install dependencies now?** No
+- **Install dependencies now?** → No
 
-Then move into the project:
+Then navigate into the project:
 
 ```bash
 cd new-app-test
@@ -49,15 +49,14 @@ cd new-app-test
 
 ---
 
-## 🎨 Install Vuetify
+## 🎨 Install Vuetify & Dependencies
 
-Install Vuetify and required dependencies:
+Install Vuetify and supporting packages:
 
 ```bash
 npm install vuetify@latest
 npm install -D sass sass-loader vite-plugin-vuetify
-npm install @mdi/font
-npm install vue-router
+npm install @mdi/font vue-router
 ```
 
 ---
@@ -183,9 +182,7 @@ import 'vuetify/styles'
 import '@mdi/font/css/materialdesignicons.css'
 
 const vuetify = createVuetify({
-  theme: {
-    defaultTheme: 'light',
-  },
+  theme: { defaultTheme: 'light' },
 })
 
 createApp(App)
@@ -208,7 +205,7 @@ createApp(App)
 </template>
 
 <script setup>
-// Empty — Vuetify and Router are initialized in main.js
+// Vuetify and Router are initialized in main.js
 </script>
 
 <style>
@@ -243,7 +240,7 @@ sudo apt-get install -y nodejs npm
 curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
 source ~/.bashrc
 
-# Install a supported Node version
+# Install supported Node version
 nvm install 22
 nvm use 22
 node -v
@@ -261,7 +258,7 @@ npx cap init
 ```
 
 - **Name:** NewAppTest  
-- **Package ID:** com.ginko.app
+- **Package ID:** com.wahyuhslabs.NewAppTest
 
 Add Android platform:
 
@@ -273,21 +270,22 @@ npx cap sync android
 npx cap open android
 ```
 
+> 💡 Create a new keystore and keystore password for release builds.
+
 ---
 
 ## 🧩 Build APK
 
-- Open **Android Studio** with the `android/` folder  
-- Select **Build → Generate Signed Bundle / APK**  
-- Configure keystore if needed  
-- Build debug or release APK  
+1. Open **Android Studio** using the `android/` folder.  
+2. Go to **Build → Generate Signed Bundle / APK**.  
+3. Configure keystore (if needed).  
+4. Choose **APK** and select **Debug** or **Release**.
 
-APK locations:
+**APK Locations:**
+- Debug → `android/app/build/outputs/apk/debug/app-debug.apk`
+- Release → `android/app/build/outputs/apk/release/app-release.apk`
 
-- Debug: `android/app/build/outputs/apk/debug/app-debug.apk`  
-- Release: `android/app/build/outputs/apk/release/app-release.apk`  
-
-> ⚠️ `flatDir` warnings are safe to ignore unless build errors occur.
+> ⚠️ `flatDir` warnings can be safely ignored unless build errors occur.
 
 ---
 
@@ -297,20 +295,15 @@ APK locations:
 git init
 git add .
 git commit -m "Initial commit"
-```
-
-Create a new repository on [GitHub](https://github.com/new) and connect it:
-
-```bash
-git remote add origin https://github.com/USERNAME/vue-vuetify-app.git
 git branch -M main
+git remote add origin https://github.com/USERNAME/vue-vuetify-app.git
 git push -u origin main
 ```
 
-### PowerShell Shortcut
+**PowerShell Shortcut:**
 
 ```bash
-npm run build; git add .; git status; git commit -m "Initial commit"; git push -u origin main
+npm run build; git add .; git commit -m "Initial commit"; git push -u origin main
 ```
 
 ---
