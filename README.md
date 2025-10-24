@@ -1,32 +1,35 @@
-# Vue 3 + Vuetify 3 + Vite + Capacitor Starter
+# 🚀 Vue 3 + Vuetify 3 + Vite + Capacitor Starter
 
-![Vue](https://img.shields.io/badge/Vue-3.3.0-brightgreen)
-![Vuetify](https://img.shields.io/badge/Vuetify-3.3.0-blue)
-![Vite](https://img.shields.io/badge/Vite-4.4.0-yellow)
-![Capacitor](https://img.shields.io/badge/Capacitor-5.0.0-purple)
+![Vue](https://img.shields.io/badge/Vue-3.5.x-brightgreen)
+![Vuetify](https://img.shields.io/badge/Vuetify-3.10.x-blue)
+![Vite](https://img.shields.io/badge/Vite-5.x-yellow)
+![Capacitor](https://img.shields.io/badge/Capacitor-7.x-purple)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-A starter template for building a **Vue 3** project with **Vuetify 3**, **Vite**, and **Capacitor** for Android deployment.
+A **ready-to-use starter template** for building modern **Vue 3 + Vuetify 3** apps powered by **Vite**, with **Capacitor** support for Android deployment.  
+Perfect for developers who want fast builds, responsive UI, and smooth Android integration.
 
 ---
 
-## Table of Contents
+## 📚 Table of Contents
 
-* [Project Setup](#project-setup)
-* [Install Vuetify](#install-vuetify)
-* [Configure Vuetify](#configure-vuetify)
-* [Setup Vuetify Plugin](#setup-vuetify-plugin)
-* [Create Simple UI](#create-simple-ui)
-* [Run the App](#run-the-app)
-* [Node.js Version Fix](#nodejs-version-fix-optional)
-* [Add Capacitor](#add-capacitor-for-android)
-* [Build APK](#build-apk)
-* [Push to GitHub](#push-to-github)
+- [Project Setup](#-project-setup)
+- [Install Vuetify](#-install-vuetify)
+- [Setup Router](#-setup-router)
+- [Create Landing Page](#-create-landing-page)
+- [Configure Vuetify](#-configure-vuetify)
+- [Setup Vuetify Plugin](#-setup-vuetify-plugin)
+- [Run the App](#-run-the-app)
+- [Node.js Version Fix (Optional)](#-nodejs-version-fix-optional)
+- [Add Capacitor for Android](#-add-capacitor-for-android)
+- [Build APK](#-build-apk)
+- [Push to GitHub](#-push-to-github)
 
 ---
 
 ## 🧱 Project Setup
 
-Create a new Vue 3 project with Vite:
+Create a new Vue 3 project with **Vite**:
 
 ```bash
 npm create vite@latest new-app-test
@@ -34,11 +37,11 @@ npm create vite@latest new-app-test
 
 When prompted:
 
-* **Framework:** Vue
-* **Variant:** JavaScript (or TypeScript)
-* **Install dependencies now?** No
+- **Framework:** Vue  
+- **Variant:** JavaScript (or TypeScript)  
+- **Install dependencies now?** No
 
-Move into your project:
+Then move into the project:
 
 ```bash
 cd new-app-test
@@ -46,80 +49,42 @@ cd new-app-test
 
 ---
 
-## 🎨 Install Vuetify 3
+## 🎨 Install Vuetify
+
+Install Vuetify and required dependencies:
 
 ```bash
 npm install vuetify@latest
 npm install -D sass sass-loader vite-plugin-vuetify
+npm install @mdi/font
+npm install vue-router
 ```
 
 ---
 
-## ⚙️ Configure Vuetify in `vite.config.js`
+## 🧭 Setup Router
 
-```javascript
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
-import vuetify from "vite-plugin-vuetify";
-import path from 'path'   // <-- add this
+Create `src/router/index.js`:
 
-export default defineConfig({
-  plugins: [vue(), vuetify({ autoImport: true })],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "src"), // <-- This enables @ as src/
-    },
-  },
-});
+```js
+import { createRouter, createWebHistory } from 'vue-router'
+import LandingPage from '@/views/LandingPage.vue'
 
-```
+const routes = [
+  { path: '/', name: 'Home', component: LandingPage },
+]
 
----
-
-## 🧩 Setup Vuetify Plugin
-
-Create `src/plugins/vuetify.js`:
-
-```javascript
-import 'vuetify/styles'
-import { createVuetify } from 'vuetify'
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
-
-export default createVuetify({
-  components,
-  directives,
+export default createRouter({
+  history: createWebHistory(),
+  routes,
 })
 ```
 
-Update `src/main.js`:
-
-```javascript
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'        // <-- import your router
-import { createVuetify } from 'vuetify'
-import 'vuetify/styles'
-import '@mdi/font/css/materialdesignicons.css'
-
-const vuetify = createVuetify({
-  theme: {
-    defaultTheme: 'light',
-  },
-})
-
-createApp(App)
-  .use(router)     // <-- register router
-  .use(vuetify)
-  .mount('#app')
-
-```
-
 ---
 
-## 🧠 Create Simple UI
+## 🏠 Create Landing Page
 
-`src/App.vue`:
+Create `src/views/LandingPage.vue`:
 
 ```vue
 <template>
@@ -157,7 +122,7 @@ const sayHello = () => {
 html, body, #app {
   height: 100%;
   margin: 0;
-  overflow: hidden; /* Prevent scrolling */
+  overflow: hidden;
 }
 
 .fullscreen {
@@ -165,6 +130,92 @@ html, body, #app {
   width: 100vw;
   padding: 0 !important;
   margin: 0 !important;
+}
+</style>
+```
+
+---
+
+## ⚙️ Configure Vuetify in `vite.config.js`
+
+```js
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import vuetify from 'vite-plugin-vuetify'
+import path from 'path'
+
+export default defineConfig({
+  plugins: [vue(), vuetify({ autoImport: true })],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
+  },
+})
+```
+
+---
+
+## 🧩 Setup Vuetify Plugin
+
+Create `src/plugins/vuetify.js`:
+
+```js
+import 'vuetify/styles'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+
+export default createVuetify({
+  components,
+  directives,
+})
+```
+
+Update `src/main.js`:
+
+```js
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './router'
+import { createVuetify } from 'vuetify'
+import 'vuetify/styles'
+import '@mdi/font/css/materialdesignicons.css'
+
+const vuetify = createVuetify({
+  theme: {
+    defaultTheme: 'light',
+  },
+})
+
+createApp(App)
+  .use(router)
+  .use(vuetify)
+  .mount('#app')
+```
+
+---
+
+## 🧠 Create Simple UI
+
+`src/App.vue`:
+
+```vue
+<template>
+  <v-app class="mt-12 pb-12">
+    <router-view />
+  </v-app>
+</template>
+
+<script setup>
+// Empty — Vuetify and Router are initialized in main.js
+</script>
+
+<style>
+html, body, #app {
+  height: 100%;
+  margin: 0;
+  background-color: #f5f5f5;
 }
 </style>
 ```
@@ -201,7 +252,7 @@ npm run dev
 
 ---
 
-## 🧩 Add Capacitor for Android
+## 📱 Add Capacitor for Android
 
 ```bash
 npm install @capacitor/core
@@ -209,8 +260,8 @@ npm install --save-dev @capacitor/cli
 npx cap init
 ```
 
-* **Name:** NewAppTest
-* **Package ID:** com.ginko.app
+- **Name:** NewAppTest  
+- **Package ID:** com.ginko.app
 
 Add Android platform:
 
@@ -224,23 +275,23 @@ npx cap open android
 
 ---
 
-## 📱 Build APK
+## 🧩 Build APK
 
-* Open **Android Studio** with `android/` folder
-* Select **Build → Generate Signed Bundle / APK**
-* Configure keystore if needed
-* Build debug or release APK
+- Open **Android Studio** with the `android/` folder  
+- Select **Build → Generate Signed Bundle / APK**  
+- Configure keystore if needed  
+- Build debug or release APK  
 
 APK locations:
 
-* Debug: `android/app/build/outputs/apk/debug/app-debug.apk`
-* Release: `android/app/build/outputs/apk/release/app-release.apk`
+- Debug: `android/app/build/outputs/apk/debug/app-debug.apk`  
+- Release: `android/app/build/outputs/apk/release/app-release.apk`  
 
-> ⚠️ `flatDir` warning is safe to ignore unless build errors occur.
+> ⚠️ `flatDir` warnings are safe to ignore unless build errors occur.
 
 ---
 
-## 🧩 Push to GitHub
+## 🧠 Push to GitHub
 
 ```bash
 git init
@@ -248,53 +299,20 @@ git add .
 git commit -m "Initial commit"
 ```
 
-* Create a new repository on [GitHub](https://github.com/new)
-* Connect your local repo:
+Create a new repository on [GitHub](https://github.com/new) and connect it:
 
 ```bash
 git remote add origin https://github.com/USERNAME/vue-vuetify-app.git
 git branch -M main
 git push -u origin main
 ```
-#### PowerShell Shortcut
 
-PowerShell
-
-```sh
-npm run build; git add .; git status; git commit -m "Initial commit"; git push -u origin main
-```
----
-
-✅ Your project is now ready for **web and Android deployment**!
-
-## 📦 Dependencies (install before running)
-
-Run the commands below in your project root. These are the packages the app expects based on the source code.
+### PowerShell Shortcut
 
 ```bash
-# core
-npm install vue@^3.5.22
-npm install vuetify@^3.7.2
-npm install vite
-
-# Capacitor
-npm install @capacitor/core@^7.4.3 @capacitor/cli@^7.4.3
-npm install @capacitor/android@^7.4.3
-
-# Bluetooth & Cordova plugins
-npm install @capacitor-community/bluetooth-le
-npm install @awesome-cordova-plugins/bluetooth-serial
-npm install @awesome-cordova-plugins/android-permissions
-
-# Utilities used in code
-npm install @capacitor/clipboard
-npm install @mdi/font
-npm install vue-router
-npm install @capacitor/app
-npm install -g cordova-res
-
-icon: /resources/icon.png
-splash: /resources/splash.png
-npx cordova-res android --skip-config --copy
-
+npm run build; git add .; git status; git commit -m "Initial commit"; git push -u origin main
 ```
+
+---
+
+✅ **Your project is now ready for web and Android deployment!**
