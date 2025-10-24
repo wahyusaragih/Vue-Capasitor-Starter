@@ -58,16 +58,20 @@ npm install -D sass sass-loader vite-plugin-vuetify
 ## ⚙️ Configure Vuetify in `vite.config.js`
 
 ```javascript
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import vuetify from 'vite-plugin-vuetify'
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import vuetify from "vite-plugin-vuetify";
+import path from 'path'   // <-- add this
 
 export default defineConfig({
-  plugins: [
-    vue(),
-    vuetify({ autoImport: true }),
-  ],
-})
+  plugins: [vue(), vuetify({ autoImport: true })],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "src"), // <-- This enables @ as src/
+    },
+  },
+});
+
 ```
 
 ---
@@ -93,10 +97,22 @@ Update `src/main.js`:
 ```javascript
 import { createApp } from 'vue'
 import App from './App.vue'
-import './style.css'
-import vuetify from './plugins/vuetify'
+import router from './router'        // <-- import your router
+import { createVuetify } from 'vuetify'
+import 'vuetify/styles'
+import '@mdi/font/css/materialdesignicons.css'
 
-createApp(App).use(vuetify).mount('#app')
+const vuetify = createVuetify({
+  theme: {
+    defaultTheme: 'light',
+  },
+})
+
+createApp(App)
+  .use(router)     // <-- register router
+  .use(vuetify)
+  .mount('#app')
+
 ```
 
 ---
@@ -250,3 +266,35 @@ npm run build; git add .; git status; git commit -m "Initial commit"; git push -
 ---
 
 ✅ Your project is now ready for **web and Android deployment**!
+
+## 📦 Dependencies (install before running)
+
+Run the commands below in your project root. These are the packages the app expects based on the source code.
+
+```bash
+# core
+npm install vue@^3.5.22
+npm install vuetify@^3.7.2
+npm install vite
+
+# Capacitor
+npm install @capacitor/core@^7.4.3 @capacitor/cli@^7.4.3
+npm install @capacitor/android@^7.4.3
+
+# Bluetooth & Cordova plugins
+npm install @capacitor-community/bluetooth-le
+npm install @awesome-cordova-plugins/bluetooth-serial
+npm install @awesome-cordova-plugins/android-permissions
+
+# Utilities used in code
+npm install @capacitor/clipboard
+npm install @mdi/font
+npm install vue-router
+npm install @capacitor/app
+npm install -g cordova-res
+
+icon: /resources/icon.png
+splash: /resources/splash.png
+npx cordova-res android --skip-config --copy
+
+```
